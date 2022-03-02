@@ -4,6 +4,7 @@ Library           RPA.Browser.Selenium    auto_close=${FALSE}
 Library           RPA.HTTP
 Library           RPA.Excel.Files
 Library           RPA.PDF
+Library           RPA.Robocorp.Vault
 
 *** Tasks ***
 Insert the sales data for the week and export it as a PDF
@@ -20,8 +21,9 @@ open the intranet website
     Open Available Browser    https://robotsparebinindustries.com/
 
 log in
-    Input Text    username    maria
-    Input Password    password    thoushallnotpass
+    ${secret}=    Get Secret    robotsparebin
+    Input Text    id:username    ${secret}[username]
+    Input Password    id:password    ${secret}[password]
     Submit Form
     Wait Until Page Contains Element    id:sales-form
 
